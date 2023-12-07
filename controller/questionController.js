@@ -33,7 +33,7 @@ async function showCategory(req,res){
     try {
         const category = req.params.category
         const questions = await Question.getAllByCategory(category)
-        res.status(200).json(questions)
+        res.status(200).json({questions})
     } catch (error) {
         res.status(404).json({"error":error.message})
     }

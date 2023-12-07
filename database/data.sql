@@ -98,7 +98,7 @@ VALUES
 
 INSERT INTO questions (quiz_id, category, question, answer)
 VALUES 
-    (1, 'Guess Who', 'Who cant say their Rs?', 'Bail');
+    (1, 'Guess_Who', 'Who cant say their Rs?', 'Bail');
 
 INSERT INTO players (user_id, quiz_id)
 VALUES 

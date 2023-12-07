@@ -27,7 +27,7 @@ class Quiz {
         if(resp.rows.length === 0){
             throw new Error (`Unable to locate quiz with Group ID: ${group_id}`)
         }
-        return new Quiz(resp.rows.map(q => new Quiz(q)))
+        return resp.rows.map(q => new Quiz(q))
     }
 
     static async getAllByCreatorId(creator_id){
@@ -35,7 +35,7 @@ class Quiz {
         if(resp.rows.length === 0){
             throw new Error (`Unable to locate quiz with Group ID: ${creator_id}`)
         }
-        return new Quiz(resp.rows.map(q => new Quiz(q)))
+        return resp.rows.map(q => new Quiz(q))
     }
 
     static async create (data){

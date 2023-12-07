@@ -7,6 +7,7 @@ const userRoutes = require('./router/userRouter')
 const groupRoutes = require("./router/groupRouter")
 const quizRoutes = require("./router/quizRouter")
 const questionRoutes = require("./router/questionRouter")
+const playerRoutes = require("./router/playerRouter")
 
 
 const app = express()
@@ -26,5 +27,6 @@ app.use("/users", userRoutes)
 app.use("/groups", groupRoutes)
 app.use("/quiz",quizRoutes)
 app.use("/questions",questionRoutes)
+app.use("/players",playerRoutes)
 
 module.exports = app;

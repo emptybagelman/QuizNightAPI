@@ -27,7 +27,7 @@ class Question {
         if(resp.rows.length === 0){
             throw new Error (`Unable to find Questions with quiz_id: ${quiz_id}`)
         }
-        return new Question(resp.rows.map(q => new Question(q)))
+        return resp.rows.map(q => new Question(q))
     }
 
     static async getAllByCategory(category){
@@ -35,7 +35,7 @@ class Question {
         if(resp.rows.length === 0){
             throw new Error (`Unable to locate Questions with category: ${category}`)
         }
-        return new Question(resp.rows.map(q => new Question(q)))
+        return resp.rows.map(q => new Question(q))
     }
 
     static async create(data){
