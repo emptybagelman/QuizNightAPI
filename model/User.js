@@ -34,9 +34,7 @@ class User {
             throw new Error("Unable to locate user.");
         }
         return new User(response.rows[0]);
-    }
-
-    
+    }   
 }
 
 module.exports = User;

@@ -26,8 +26,17 @@ CREATE TABLE groups (
     id INT GENERATED ALWAYS AS IDENTITY,
     group_creator INT NOT NULL,
     group_name VARCHAR(100) NOT NULL,
+    password VARCHAR(50) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (group_creator) REFERENCES users(id)
+);
+
+CREATE TABLE grouptokens (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    group_id INT NOT NULL,
+    token CHAR(36) UNIQUE NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (group_id) REFERENCES groups(id)
 );
 
 CREATE TABLE quizzes (
@@ -35,7 +44,6 @@ CREATE TABLE quizzes (
     group_id INT NOT NULL,
     creator_id INT NOT NULL,
     quiz_name VARCHAR(50) NOT NULL,
-    password VARCHAR(50) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (group_id) REFERENCES groups(id),
     FOREIGN KEY (creator_id) REFERENCES users(id)
@@ -76,13 +84,17 @@ INSERT INTO tokens (user_id, token)
 VALUES 
     (1, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
 
-INSERT INTO groups (group_creator, group_name)
+INSERT INTO groups (group_creator, group_name, password)
 VALUES 
-    (1, 'POO SQUAD');
+    (1, 'POO_SQUAD','bigbattypants');
 
-INSERT INTO quizzes (group_id, creator_id, quiz_name, password)
+INSERT INTO grouptokens (group_id, token)
+VALUES
+    (1, 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
+
+INSERT INTO quizzes (group_id, creator_id, quiz_name)
 VALUES 
-    (1, 1, 'QuizNight 1', 'bigbattypants');
+    (1, 1, 'QuizNight 1');
 
 INSERT INTO questions (quiz_id, category, question, answer)
 VALUES 

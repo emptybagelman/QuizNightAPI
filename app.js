@@ -4,6 +4,9 @@ const logger = require('morgan')
 // const suggestionRoutes = require('./router/suggRouter')
 
 const userRoutes = require('./router/userRouter')
+const groupRoutes = require("./router/groupRouter")
+const quizRoutes = require("./router/quizRouter")
+const questionRoutes = require("./router/questionRouter")
 
 
 const app = express()
@@ -19,7 +22,9 @@ app.get('/', (req, res) => {
     })
 })
 
-// app.use('/suggestions', suggestionRoutes)
-
+app.use("/users", userRoutes)
+app.use("/groups", groupRoutes)
+app.use("/quiz",quizRoutes)
+app.use("/questions",questionRoutes)
 
 module.exports = app;
