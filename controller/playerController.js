@@ -21,7 +21,7 @@ async function showId(req,res){
 
 async function showQuizId(req,res){
     try {
-        const quiz_id = req.params.quiz_id
+        const quiz_id = parseInt(req.params.quiz_id)
         const players = await Player.getAllByQuizId(quiz_id)
         res.status(200).json(players)
     } catch (error) {

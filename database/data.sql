@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS playeranswers;
 DROP TABLE IF EXISTS players;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS quizzes;
+DROP TABLE IF EXISTS grouptokens;
 DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS tokens;
 DROP TABLE IF EXISTS users;
@@ -71,6 +72,7 @@ CREATE TABLE players (
 CREATE TABLE playeranswers (
     id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
+    question_id INT NOT NULL,
     answer VARCHAR(100),
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES players(id)
@@ -104,6 +106,6 @@ INSERT INTO players (user_id, quiz_id)
 VALUES 
     (1, 1);
 
-INSERT INTO playeranswers (user_id, answer)
+INSERT INTO playeranswers (user_id, question_id, answer)
 VALUES 
-    (1, 'Robert');
+    (1, 1, 'Robert');
