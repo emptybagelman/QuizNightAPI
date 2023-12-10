@@ -25,11 +25,11 @@ CREATE TABLE tokens (
 
 CREATE TABLE groups (
     id INT GENERATED ALWAYS AS IDENTITY,
-    group_creator INT NOT NULL,
+    group_creator VARCHAR(50) NOT NULL,
     group_name VARCHAR(100) NOT NULL,
     password VARCHAR(50) NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (group_creator) REFERENCES users(id)
+    FOREIGN KEY (group_creator) REFERENCES users(username)
 );
 
 CREATE TABLE grouptokens (
@@ -88,7 +88,7 @@ VALUES
 
 INSERT INTO groups (group_creator, group_name, password)
 VALUES 
-    (1, 'POO_SQUAD','bigbattypants');
+    ('emptybagelman', 'POO_SQUAD','bigbattypants');
 
 INSERT INTO grouptokens (group_id, token)
 VALUES
