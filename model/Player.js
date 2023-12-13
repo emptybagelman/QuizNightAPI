@@ -1,10 +1,11 @@
 const db = require("../database/connect")
 
 class Player {
-    constructor({ id,user_id, quiz_id }){
+    constructor({ id,user_id, quiz_id, nickname }){
         this.id = id
         this.user_id = user_id
         this.quiz_id = quiz_id
+        this.nickname = nickname
     }
 
     static async getAll(){

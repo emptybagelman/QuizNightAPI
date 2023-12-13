@@ -64,6 +64,7 @@ CREATE TABLE players (
     id INT GENERATED ALWAYS AS IDENTITY,
     user_id INT NOT NULL,
     quiz_id INT NOT NULL,
+    nickname VARCHAR(50) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (quiz_id) REFERENCES quizzes(id)
@@ -102,9 +103,9 @@ INSERT INTO questions (quiz_id, category, question, answer)
 VALUES 
     (1, 'Guess_Who', 'Who cant say their Rs?', 'Bail');
 
-INSERT INTO players (user_id, quiz_id)
+INSERT INTO players (user_id, quiz_id, nickname)
 VALUES 
-    (1, 1);
+    (1, 1, 'boneur');
 
 INSERT INTO playeranswers (user_id, question_id, answer)
 VALUES 
