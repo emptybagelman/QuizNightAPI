@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS playeranswers;
 DROP TABLE IF EXISTS players;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS quizzes;
+DROP TABLE IF EXISTS members;
 DROP TABLE IF EXISTS grouptokens;
 DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS tokens;
@@ -40,6 +41,17 @@ CREATE TABLE grouptokens (
     FOREIGN KEY (group_id) REFERENCES groups(id)
 );
 
+CREATE TABLE members (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    user_id INT NOT NULL,
+    group_id INT NOT NULL,
+    total_score INT NOT NULL,
+    nickname VARCHAR(50),
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (group_id) REFERENCES groups(id)
+);
+
 CREATE TABLE quizzes (
     id INT GENERATED ALWAYS AS IDENTITY,
     group_id INT NOT NULL,
@@ -62,23 +74,22 @@ CREATE TABLE questions (
 
 CREATE TABLE players (
     id INT GENERATED ALWAYS AS IDENTITY,
-    user_id INT NOT NULL,
+    member_id INT NOT NULL,
     quiz_id INT NOT NULL,
-    nickname VARCHAR(50) NOT NULL,
     local_score INT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (member_id) REFERENCES members(id),
     FOREIGN KEY (quiz_id) REFERENCES quizzes(id)
 );
 
 CREATE TABLE playeranswers (
     id INT GENERATED ALWAYS AS IDENTITY,
-    user_id INT NOT NULL,
+    player_id INT NOT NULL,
     question_id INT NOT NULL,
     answer VARCHAR(100),
     correct BOOLEAN NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES players(id)
+    FOREIGN KEY (player_id) REFERENCES players(id)
 );
 
 INSERT INTO users (username, password, nickname)
@@ -101,6 +112,12 @@ INSERT INTO grouptokens (group_id, token)
 VALUES
     (1, 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb');
 
+INSERT INTO members (user_id, group_id, total_score, nickname)
+VALUES
+    (1, 1, 200, 'boneur'),
+    (2, 1, 400, 'serg'),
+    (3, 1, 200, 'joel');
+
 INSERT INTO quizzes (group_id, creator_id, quiz_name)
 VALUES 
     (1, 1, 'QuizNight 1'),
@@ -115,16 +132,16 @@ VALUES
     (2, 'Penis', 'balls?', 'yes'),
     (2, 'LEGO', 'LEGO or LEGOs?', 'LEGO');
 
-INSERT INTO players (user_id, quiz_id, nickname, local_score)
+INSERT INTO players (member_id, quiz_id, local_score)
 VALUES 
-    (1, 1, 'boneur',20),
-    (2, 1, 'serg',10),
-    (2, 1, 'joel',0),
-    (1, 2, 'boneur',0),
-    (3, 2, 'joel',20),
-    (3, 3, 'joel',0);
+    (1, 1,20),
+    (2, 1,10),
+    (2, 1,0),
+    (1, 2,0),
+    (3, 2,20),
+    (3, 3,0);
 
-INSERT INTO playeranswers (user_id, question_id, answer, correct)
+INSERT INTO playeranswers (player_id, question_id, answer, correct)
 VALUES 
     (1, 1, 'Robert', False),
     (2, 2, 'reginald', False),

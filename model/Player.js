@@ -1,11 +1,10 @@
 const db = require("../database/connect")
 
 class Player {
-    constructor({ id,user_id, quiz_id, nickname, local_score }){
+    constructor({ id,member_id, quiz_id, local_score }){
         this.id = id
-        this.user_id = user_id
+        this.member_id = member_id
         this.quiz_id = quiz_id
-        this.nickname = nickname
         this.local_score = local_score
     }
 
@@ -17,7 +16,7 @@ class Player {
     static async getById(id){
         const resp = await db.query("SELECT * FROM players WHERE id = $1;",[id])
         if(resp.rows.length === 0){
-            throw new Error(`Unable to find player: ${this.user_id} in quiz: ${this.quiz_id}`)
+            throw new Error(`Unable to find player: ${this.member_id} in quiz: ${this.quiz_id}`)
         }
         return new Player(resp.rows[0])
     }
@@ -31,8 +30,8 @@ class Player {
     }
 
     static async create(data){
-        const {user_id,quiz_id} = data
-        const resp = await db.query("INSERT INTO players (user_id,quiz_id) VALUES ($1,$2) RETURNING id;",[user_id,quiz_id])
+        const {member_id,quiz_id,local_score} = data
+        const resp = await db.query("INSERT INTO players (member_id,quiz_id,local_score) VALUES ($1,$2,$3) RETURNING id;",[member_id,quiz_id,local_score])
         const newId = resp.rows[0].id
         const newPlayer = await Player.getById(newId)
         return newPlayer

@@ -39,8 +39,8 @@ class PlayerAnswer{
     }
 
     static async create(data){
-        const {user_id, question_id, answer} = data
-        const res = await db.query("INSERT INTO playeranswers (user_id, question_id, answer) VALUES ($1, $2, $3) RETURNING id;",[user_id, question_id, answer])
+        const {user_id, question_id, answer,correct} = data
+        const res = await db.query("INSERT INTO playeranswers (user_id, question_id, answer,correct) VALUES ($1, $2, $3,$4) RETURNING id;",[user_id, question_id, answer,correct])
         const newId = res.rows[0].id
         const newPA = await PlayerAnswer.getById(newId)
         return newPA;
