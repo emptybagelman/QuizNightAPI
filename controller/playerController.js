@@ -35,6 +35,18 @@ async function create(req,res){
     res.status(201).send({"Created successfully":result})
 }
 
+async function updateLocalScore(req,res){
+    try {
+        const id = parseInt(req.params.id)
+        const data = req.body
+        const playerToUpdate = await Player.getById(id)
+        const updatedPlayer = await playerToUpdate.updateLocalScore(data)
+        res.status(201).json(updatedPlayer)
+    } catch (error) {
+        res.status(404).json({"error":error.message})
+    }
+}
+
 async function destroy(req,res){
     try {
         const id = parseInt(req.params.id)
@@ -47,5 +59,5 @@ async function destroy(req,res){
 }
 
 module.exports = {
-    index, showId, showQuizId, create, destroy
+    index, showId, showQuizId, create, updateLocalScore, destroy
 }

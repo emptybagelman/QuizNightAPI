@@ -35,12 +35,24 @@ async function create(req,res){
     res.status(201).send({"Created successfully":result})
 }
 
-async function update(req,res){
+async function updateNickname(req,res){
     try {
         const id = parseInt(req.params.id)
         const data = req.body
         const memberToUpdate = await Member.getById(id)
         const updatedMember = await memberToUpdate.updateNickname(data)
+        res.status(201).json(updatedMember)
+    } catch (error) {
+        res.status(404).json({"error":error.message})
+    }
+}
+
+async function updateTotalScore(req,res){
+    try {
+        const id = parseInt(req.params.id)
+        const data = req.body
+        const memberToUpdate = await Member.getById(id)
+        const updatedMember = await memberToUpdate.updateTotalScore(data)
         res.status(201).json(updatedMember)
     } catch (error) {
         res.status(404).json({"error":error.message})
@@ -59,5 +71,5 @@ async function destroy(req,res){
 }
 
 module.exports = {
-    index, showId, showGroupId, create, update, destroy
+    index, showId, showGroupId, create, updateNickname, updateTotalScore, destroy
 }

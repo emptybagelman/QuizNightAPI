@@ -8,7 +8,8 @@ memberRoutes.get("/",memberController.index)
 memberRoutes.get("/:id",memberController.showId)
 memberRoutes.get("/group/:group_id",memberController.showGroupId)
 memberRoutes.post("/",memberController.create)
-memberRoutes.patch("/:id",memberController.update)
+memberRoutes.patch("/nickname/:id",memberController.updateNickname)
+memberRoutes.patch("/totalscore/:id",memberController.updateTotalScore)
 memberRoutes.delete("/:id",memberController.destroy)
 
 module.exports = memberRoutes

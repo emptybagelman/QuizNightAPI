@@ -37,6 +37,21 @@ class Player {
         return newPlayer
     }
 
+    async updateLocalScore(data){
+        try {
+            const { local_score } = data;
+            const response = await db.query("UPDATE players SET local_score = $1 WHERE id = $2 RETURNING *;", [local_score, this.id]);
+        
+            if (response.rows.length === 0) {
+              throw new Error(`Unable to update local_score for user with ID: ${this.id}. No rows were affected. Data may be malformed.`);
+            }
+            return new Player(response.rows[0]);
+          } catch (error) {
+            console.error('Error in updateLocalScore:', error);
+            throw error;
+          }
+    }
+
     async destroy(){
         const resp = await db.query("DELETE FROM players WHERE id = $1 RETURNING *;",[this.id])
         return new Player(resp.rows[0])

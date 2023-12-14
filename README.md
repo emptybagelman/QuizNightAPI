@@ -18,6 +18,15 @@
  - POST ```/``` create group
  - POST ```/join``` enter group
 
+ ### ```/members```
+ - GET ```/``` all members
+ - GET ```/:id``` member by id
+ - GET ```/group/:group_id``` group by group_id
+ - POST ```/``` create member
+ - UPDATE ```/nickname/:id``` update member nickname
+ - UPDATE ```/totalscore/:id``` update member total_score
+ - DELETE ```/:id``` delete member
+
 ### ```/quiz```
  - GET ```/``` all quizzes
  - GET ```/:id``` quiz by id
@@ -41,6 +50,7 @@
  - GET ```/:id``` specific player
  - GET ```/quiz/:id``` player in quiz by id
  - POST ```/``` create player
+ - UPDATE ```/localscore/:id``` update player local_score
  - DELETE ```/:id``` delete player
 
 ### ```/playeranswers```
