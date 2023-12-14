@@ -65,6 +65,7 @@ CREATE TABLE players (
     user_id INT NOT NULL,
     quiz_id INT NOT NULL,
     nickname VARCHAR(50) NOT NULL,
+    local_score INT NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (quiz_id) REFERENCES quizzes(id)
@@ -75,17 +76,22 @@ CREATE TABLE playeranswers (
     user_id INT NOT NULL,
     question_id INT NOT NULL,
     answer VARCHAR(100),
+    correct BOOLEAN NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES players(id)
 );
 
 INSERT INTO users (username, password, nickname)
 VALUES 
-    ('emptybagelman', 'password', 'boneur');
+    ('emptybagelman', 'password', 'boneur'),
+    ('fuzionz', 'password', 'serg'),
+    ('jx40w', 'password', 'joel');
 
 INSERT INTO tokens (user_id, token)
 VALUES 
-    (1, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    (1, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'),
+    (2, 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'),
+    (3, 'cccccccccccccccccccccccccccccccccccc');
 
 INSERT INTO groups (group_creator, group_name, password)
 VALUES 
@@ -97,16 +103,29 @@ VALUES
 
 INSERT INTO quizzes (group_id, creator_id, quiz_name)
 VALUES 
-    (1, 1, 'QuizNight 1');
+    (1, 1, 'QuizNight 1'),
+    (1, 2, 'Quiz 2'),
+    (1, 2, 'Tester 3');
 
 INSERT INTO questions (quiz_id, category, question, answer)
 VALUES 
-    (1, 'Guess_Who', 'Who cant say their Rs?', 'Bail');
+    (1, 'Guess_Who', 'Who cant say their Rs?', 'Bail'),
+    (1, 'Music', 'Who is King Reggie?', 'Josh'),
+    (1, 'Music', 'What does bbno$ means?', 'Baby no money'),
+    (2, 'Penis', 'balls?', 'yes'),
+    (2, 'LEGO', 'LEGO or LEGOs?', 'LEGO');
 
-INSERT INTO players (user_id, quiz_id, nickname)
+INSERT INTO players (user_id, quiz_id, nickname, local_score)
 VALUES 
-    (1, 1, 'boneur');
+    (1, 1, 'boneur',20),
+    (2, 1, 'serg',10),
+    (2, 1, 'joel',0),
+    (1, 2, 'boneur',0),
+    (3, 2, 'joel',20),
+    (3, 3, 'joel',0);
 
-INSERT INTO playeranswers (user_id, question_id, answer)
+INSERT INTO playeranswers (user_id, question_id, answer, correct)
 VALUES 
-    (1, 1, 'Robert');
+    (1, 1, 'Robert', False),
+    (2, 2, 'reginald', False),
+    (2, 2, 'josh', True);
