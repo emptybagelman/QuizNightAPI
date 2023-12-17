@@ -38,6 +38,14 @@ class Group {
         return new Group(resp.rows[0])
     }
 
+    static async getByMemberId(user_id){
+        const resp = await db.query("SELECT groups.* FROM groups JOIN members ON groups.id = members.group_id WHERE members.user_id = $1",[user_id])
+        if(resp.rows.length === 0){
+            throw new Error (`Unable to find groups where user: ${user_id} is a member.`)
+        }
+        return resp.rows.map(g => new Group(g))
+    }
+
     static async create (data) {
         const {group_creator, group_name, password} = data;
         let response = await db.query('INSERT INTO groups (group_creator, group_name, password) VALUES ($1, $2, $3) RETURNING id', [group_creator, group_name, password])

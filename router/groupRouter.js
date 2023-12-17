@@ -7,6 +7,7 @@ router.get("/", groupController.index)
 router.get("/id/:id",groupController.showId)
 router.get("/name/:name",groupController.showName)
 router.get("/creatorId/:id", groupController.showCreator)
+router.get("/user/:user_id",groupController.showUserGroups)
 router.post("/",groupController.createGroup)
 router.post("/join",groupController.joinGroup)
 

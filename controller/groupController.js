@@ -52,6 +52,16 @@ async function showCreator(req,res) {
     }
 }
 
+async function showUserGroups(req,res){
+    try {
+        const user_id = parseInt(req.params.user_id)
+        const groups = await Group.getByMemberId(user_id)
+        res.status(200).json(groups)
+    } catch (error) {
+        res.status(404).json({"error":error.message})
+    }
+}
+
 async function createGroup (req, res) {
     const data = req.body; 
     const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS))
@@ -81,5 +91,5 @@ async function joinGroup (req, res) {
 }
 
 module.exports = {
-    index, showId, showName, showCreator, createGroup, joinGroup
+    index, showId, showName, showCreator, showUserGroups, createGroup, joinGroup
 }

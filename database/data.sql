@@ -49,7 +49,8 @@ CREATE TABLE members (
     nickname VARCHAR(50),
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (group_id) REFERENCES groups(id)
+    FOREIGN KEY (group_id) REFERENCES groups(id),
+    FOREIGN KEY (nickname) REFERENCES users(nickname)
 );
 
 CREATE TABLE quizzes (
