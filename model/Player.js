@@ -30,7 +30,7 @@ class Player {
     }
 
     static async getAllNamesByQuizId(quiz_id){
-        const resp = await db.query("SELECT members.nickname FROM players JOIN members ON players.member_id = members.id WHERE players.quiz_id = $1;",[quiz_id])
+        const resp = await db.query("SELECT members.* FROM players JOIN members ON players.member_id = members.id WHERE players.quiz_id = $1;",[quiz_id])
         if(resp.rows.length === 0){
             throw new Error(`Unable to find members for quiz: ${quiz_id}`)
         }
