@@ -29,6 +29,16 @@ async function showQuizId(req,res){
     }
 }
 
+async function showUsernamesOfQuiz(req,res){
+    try {
+        const quiz_id = parseInt(req.params.quiz_id)
+        const players = await Player.getAllNamesByQuizId(quiz_id)
+        res.status(200).json(players)
+    } catch (error) {
+        res.status(404).json({"error":error.message})
+    }
+}
+
 async function create(req,res){
     const data = req.body
     const result = await Player.create(data)
@@ -59,5 +69,5 @@ async function destroy(req,res){
 }
 
 module.exports = {
-    index, showId, showQuizId, create, updateLocalScore, destroy
+    index, showId, showQuizId, showUsernamesOfQuiz, create, updateLocalScore, destroy
 }

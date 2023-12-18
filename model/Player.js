@@ -29,6 +29,14 @@ class Player {
         return resp.rows.map(p => new Player(p))
     }
 
+    static async getAllNamesByQuizId(quiz_id){
+        const resp = await db.query("SELECT members.nickname FROM players JOIN members ON players.member_id = members.id WHERE players.quiz_id = $1;",[quiz_id])
+        if(resp.rows.length === 0){
+            throw new Error(`Unable to find members for quiz: ${quiz_id}`)
+        }
+        return resp.rows;
+    }
+
     static async create(data){
         const {member_id,quiz_id,local_score} = data
         const resp = await db.query("INSERT INTO players (member_id,quiz_id,local_score) VALUES ($1,$2,$3) RETURNING id;",[member_id,quiz_id,local_score])
