@@ -10,6 +10,7 @@ const questionRoutes = require("./router/questionRouter")
 const playerRoutes = require("./router/playerRouter")
 const paRoutes = require("./router/paRouter")
 const memberRoutes = require("./router/memberRouter")
+const songRoutes = require("./router/memberRouter")
 
 
 const app = express()
@@ -32,5 +33,6 @@ app.use("/questions",questionRoutes)
 app.use("/players",playerRoutes)
 app.use("/playeranswers",paRoutes)
 app.use("/members",memberRoutes)
+app.use("/songs",songRoutes)
 
 module.exports = app;

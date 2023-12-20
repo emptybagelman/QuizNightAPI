@@ -7,12 +7,13 @@ DROP TABLE IF EXISTS grouptokens;
 DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS tokens;
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS songs;
 
 CREATE TABLE users (
     id INT GENERATED ALWAYS AS IDENTITY,
     username VARCHAR(50) UNIQUE NOT NULL,
     password VARCHAR(100) NOT NULL,
-    nickname VARCHAR(50),
+    nickname VARCHAR(50) UNIQUE,
     PRIMARY KEY (id)
 );
 
@@ -93,6 +94,17 @@ CREATE TABLE playeranswers (
     FOREIGN KEY (player_id) REFERENCES players(id)
 );
 
+CREATE TABLE songs (
+    id INT GENERATED ALWAYS AS IDENTITY,
+    name VARCHAR(100) NOT NULL, 
+    origin_url VARCHAR(500) NOT NULL, 
+    capo INT NOT NULL,
+    lines VARCHAR(500),
+    chords VARCHAR(100),
+    sidenotes VARCHAR(500),
+    PRIMARY KEY (id)
+);
+
 INSERT INTO users (username, password, nickname)
 VALUES 
     ('emptybagelman', 'password', 'boneur'),
@@ -147,3 +159,7 @@ VALUES
     (1, 1, 'Robert', False),
     (2, 2, 'reginald', False),
     (2, 2, 'josh', True);
+
+INSERT INTO songs (name, origin_url, capo, lines, chords, sidenotes)
+VALUES 
+    ('temp', 'https://youtube.com', 0, '{0:"",1:"",2:"",3:"",4:"",5:""}', '[C,C,C,D]', 'tempsong');

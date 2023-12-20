@@ -2,14 +2,14 @@ const { Router } = require("express")
 
 const memberController = require("../controller/memberController")
 
-const memberRoutes = Router()
+const router = Router()
 
-memberRoutes.get("/",memberController.index)
-memberRoutes.get("/:id",memberController.showId)
-memberRoutes.get("/group/:group_id",memberController.showGroupId)
-memberRoutes.post("/",memberController.create)
-memberRoutes.patch("/nickname/:id",memberController.updateNickname)
-memberRoutes.patch("/totalscore/:id",memberController.updateTotalScore)
-memberRoutes.delete("/:id",memberController.destroy)
+router.get("/",memberController.index)
+router.get("/:id",memberController.showId)
+router.get("/group/:group_id",memberController.showGroupId)
+router.post("/",memberController.create)
+router.patch("/nickname/:id",memberController.updateNickname)
+router.patch("/totalscore/:id",memberController.updateTotalScore)
+router.delete("/:id",memberController.destroy)
 
-module.exports = memberRoutes
+module.exports = router
